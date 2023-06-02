@@ -1,6 +1,6 @@
+import streamlit as st
 import requests
 import pandas as pd
-import streamlit as st
 
 def get_data():
     url = "https://api.rated.network/v0/eth/operators?window=1d&idType=entity&size=1000"
@@ -11,16 +11,23 @@ def get_data():
     data = response.json()
     return data
 
-def main():
-    data = get_data()
-    if isinstance(data, list) and isinstance(data[0], dict):  # check if data is list of dicts
-        df = pd.DataFrame(data)
-        df = df[['id', 'validatorCount', 'avgValidatorEffectiveness']]
-        df.columns = ['LST Name', 'Validator Count', 'Rating']
-        st.table(df)
-    else:
-        st.write("Data is not in the expected format.")
+def create_dataframe(data):
+    lst_name = []
+    validator_count = []
+    rating = []
+    for item in data['data']:
+        lst_name.append(item['id'])
+        validator_count.append(item['validatorCount'])
+        rating.append(item['avgValidatorEffectiveness'])
+    df = pd.DataFrame({
+        'LST name': lst_name,
+        'Validator Count': validator_count,
+        'Rating': rating
+    })
+    return df
 
+data = get_data()
+df = create_dataframe(data)
 
-if __name__ == '__main__':
-    main()
+st.title('LST Table')
+st.dataframe(df)
