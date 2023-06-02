@@ -5,7 +5,7 @@ import pandas as pd
 def get_data():
     url = "https://api.rated.network/v0/eth/operators?window=1d&idType=entity&size=1000"
     headers = {
-      'Authorization': 'Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzY29wZXMiOltdLCJpZCI6IjIxNmUwOGZiZjFhNjRkMWU5NzFjY2M0NzM1ZmUxMmJjIiwic3ViIjoiMDViYmFmYTJmZGRhNGE0MjgwNjVmMWFkNWNhZGVhZjEiLCJleHAiOjE3MTAwNTc0NDh9.gKqSVY5yM17G2i0Zgbj2KGODe2suVZqFQjXuvqzmplThNBA-EL7KVOfp8LvZbwWoOkDpKdHgYtclibQz1z9IMA'
+      'Authorization': 'Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzY29wZXMiOltdLCJpZCI6IjIxNmUwOGZiZjFhNjRkMWU5NzFjY2M0NzM1ZmUxMmJjIiwic3ViIjoiMDViYmFmYTJmZDRhNGE0MjgwNjVmMWFkNWNhZGVhZjEiLCJleHAiOjE3MTAwNTc0NDh9.gKqSVY5yM17G2i0Zgbj2KGODe2suVZqFQjXuvqzmplThNBA-EL7KVOfp8LvZbwWoOkDpKdHgYtclibQz1z9IMA'
     }
     response = requests.request("GET", url, headers=headers)
     data = response.json()
@@ -15,7 +15,7 @@ def get_data():
         apr_url = f"https://api.rated.network/v0/eth/operators/{item['id']}/apr?window=1d&idType=entity&size=1000"
         apr_response = requests.request("GET", apr_url, headers=headers)
         apr_data = apr_response.json()
-        item['apr'] = apr_data['data']['percentage']
+        item['apr'] = apr_data['percentage']
 
     return data
 
