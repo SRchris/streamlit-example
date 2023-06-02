@@ -15,7 +15,7 @@ def get_data():
         apr_url = f"https://api.rated.network/v0/eth/operators/{item['id']}/apr?window=1d&idType=entity&size=1000"
         apr_response = requests.request("GET", apr_url, headers=headers)
         apr_data = apr_response.json()
-        item['apr'] = apr_data['percentage']
+        item['apr'] = apr_data['data']['percentage']
 
     return data
 
