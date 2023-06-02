@@ -13,10 +13,14 @@ def get_data():
 
 def main():
     data = get_data()
-    df = pd.DataFrame(data)
-    df = df[['id', 'validatorCount', 'avgValidatorEffectiveness']]
-    df.columns = ['LST Name', 'Validator Count', 'Rating']
-    st.table(df)
+    if isinstance(data, list) and isinstance(data[0], dict):  # check if data is list of dicts
+        df = pd.DataFrame(data)
+        df = df[['id', 'validatorCount', 'avgValidatorEffectiveness']]
+        df.columns = ['LST Name', 'Validator Count', 'Rating']
+        st.table(df)
+    else:
+        st.write("Data is not in the expected format.")
+
 
 if __name__ == '__main__':
     main()
